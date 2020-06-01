@@ -50,14 +50,48 @@ window.onload = function() {
             [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
             [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
             ];
+        var roomMap = [
+            [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+            [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+            [-1,-1,3,3,3,3,3,3,3,3,3],
+            [-1,-1,3,3,3,3,3,3,3,3,3],
+            [-1,-1,3,3,3,3,3,3,3,3,3],
+            [-1,-1,3,3,3,3,3,3,3,3,3],
+            [-1,-1,3,3,3,3,3,3,3,3,3],
+            [-1,-1,3,3,3,3,3,3,3,3,3],
+            [-1,-1,3,3,3,3,3,3,3,3,3],
+        ];
+        
+        map.collisionData = [
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+        ];
         
         //19 rows tall, 34 col wide
         map.loadData(mapData, map2Data);
+        //map.loadData(roomMap);
         
         var player1 = new Sprite(32, 32);
         player1.x = 5 * 16;
-        player1.y = 9 * 16;
-        player1.lastDown = "R";
+        player1.y = 7 * 16;
+        player1.lastDown = 10;
         player1.walkingRight = [18, 18, 19, 19, 19, 20, 20, 19, 19, 19];
         player1.walkingLeft = [9, 9, 10, 10, 10, 11, 11, 10, 10, 10];
         player1.walkingUp = [27, 27, 28, 28, 28, 29, 29, 28, 28, 28];
@@ -65,6 +99,8 @@ window.onload = function() {
         player1.image = game.assets['chara0.png'];
         player1.frame = player1.walkingRight;
         player1.cities = 0;
+        player1.lastKnown = [player1.x, player1.y];
+        player1.map = "main";
         
         
         player1.addEventListener('enterframe', function() {
@@ -90,6 +126,36 @@ window.onload = function() {
                     player1.frame = player1.lastDown;
                     //console.log(player1.y / 16);
                 }
+            
+            // if the player
+            if ( mapData[Math.round ((player1.y + 8) / 16)][Math.round((player1.x + 8) / 16)] == 21 && player1.map == "main") {
+                map.loadData(roomMap);
+                player1.lastKnown = [player1.x, player1.y]
+                player1.map = "room";
+                player1.x = 7 * 16;
+                player1.y = 7 * 16;
+            }
+            if (player1.x >= 16 * 10 && player1.map == "room"){
+                map.loadData(mapData, map2Data);
+                player1.x = player1.lastKnown[0] + 24;
+                player1.y = player1.lastKnown[1];
+                player1.map = "main";
+            } else if (player1.x <= 1 * 16 && player1.map == "room") {
+                map.loadData(mapData, map2Data);
+                player1.x = player1.lastKnown[0] - 18;
+                player1.y = player1.lastKnown[1];
+                player1.map = "main";
+            } else if (player1.y <= 1 * 16 && player1.map == "room"){
+                map.loadData(mapData, map2Data);
+                player1.x = player1.lastKnown[0];
+                player1.y = player1.lastKnown[1] - 32;
+                player1.map = "main";
+            } else if (player1.y >= 8 * 16 && player1.map == "room"){
+                map.loadData(mapData, map2Data);
+                player1.x = player1.lastKnown[0];
+                player1.y = player1.lastKnown[1] + 18;
+                player1.map = "main";
+            }
                  
         }
         );
@@ -116,16 +182,18 @@ window.onload = function() {
             console.log(e.code);
             
             if (e.code == 'KeyT'){
-                let xFrame = Math.floor(player1.x / 16);
-                let yFrame = Math.ceil(player1.y / 16);
+                let xFrame = Math.round((player1.x + 8) / 16);
+                let yFrame = Math.round((player1.y + 8) / 16);
                 map2Data[yFrame][xFrame] = 23;
+                map.collisionData[yFrame][xFrame] = 1;
                 map.loadData(mapData, map2Data);
             }
             
             if (e.code == 'Space'){
-                let xFrame = Math.floor(player1.x / 16);
+                let xFrame = Math.floor(player1.x / 16) + 1;
                 let yFrame = Math.floor(player1.y / 16);
                 mapData[yFrame][xFrame] = 21;
+                map.collisionData[yFrame][xFrame] = 1;
                 map.loadData(mapData, map2Data);
                 player1.cities += 1;
                 
