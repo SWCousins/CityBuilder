@@ -61,6 +61,17 @@ window.onload = function() {
             [-1,-1,3,3,3,3,3,3,3,3,3],
             [-1,-1,3,3,3,3,3,3,3,3,3],
         ];
+        var roomStuff = [
+            [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+            [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+            [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+            [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+            [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+            [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+            [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+            [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+            [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
+        ]
         
         map.collisionData = [
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -99,6 +110,7 @@ window.onload = function() {
         player1.image = game.assets['chara0.png'];
         player1.frame = player1.walkingRight;
         player1.cities = 0;
+        player1.gold = 0;
         player1.lastKnown = [player1.x, player1.y];
         player1.map = "main";
         
@@ -127,7 +139,7 @@ window.onload = function() {
                     //console.log(player1.y / 16);
                 }
             
-            // if the player
+            // if the player comes close to a city, a new map is loaded and previous x, y coordinates are saved
             if ( mapData[Math.round ((player1.y + 8) / 16)][Math.round((player1.x + 8) / 16)] == 21 && player1.map == "main") {
                 map.loadData(roomMap);
                 player1.lastKnown = [player1.x, player1.y]
@@ -137,12 +149,12 @@ window.onload = function() {
             }
             if (player1.x >= 16 * 10 && player1.map == "room"){
                 map.loadData(mapData, map2Data);
-                player1.x = player1.lastKnown[0] + 24;
+                player1.x = player1.lastKnown[0] + 32;
                 player1.y = player1.lastKnown[1];
                 player1.map = "main";
             } else if (player1.x <= 1 * 16 && player1.map == "room") {
                 map.loadData(mapData, map2Data);
-                player1.x = player1.lastKnown[0] - 18;
+                player1.x = player1.lastKnown[0] - 32;
                 player1.y = player1.lastKnown[1];
                 player1.map = "main";
             } else if (player1.y <= 1 * 16 && player1.map == "room"){
@@ -153,12 +165,32 @@ window.onload = function() {
             } else if (player1.y >= 8 * 16 && player1.map == "room"){
                 map.loadData(mapData, map2Data);
                 player1.x = player1.lastKnown[0];
-                player1.y = player1.lastKnown[1] + 18;
+                player1.y = player1.lastKnown[1] + 32;
                 player1.map = "main";
             }
                  
         }
         );
+        
+        var addFruit = function() {
+            var fruit = new Sprite(16, 16);
+            fruit.x = player1.x;
+            fruit.y = player1.y;
+            fruit.image = game.assets['icon0.png'];
+            fruit.frame = 16;
+            
+            
+            fruit.addEventListener('enterframe', function(e) {
+                if(player1.map == "main"){       
+                    game.rootScene.removeChild(this);
+                    
+                }
+                
+            
+        });
+        game.rootScene.addChild(fruit);
+        };
+                                   
         
         var gold = new Sprite(16, 16);
         gold.x = 31 * 16;
@@ -189,7 +221,11 @@ window.onload = function() {
                 map.loadData(mapData, map2Data);
             }
             
-            if (e.code == 'Space'){
+            if (e.code == 'KeyF'){
+                addFruit();
+            }
+            
+            if (e.code == 'Space' && player1.map == "main"){
                 let xFrame = Math.floor(player1.x / 16) + 1;
                 let yFrame = Math.floor(player1.y / 16);
                 mapData[yFrame][xFrame] = 21;
@@ -213,6 +249,12 @@ window.onload = function() {
                     counter2.frame = 8;
                 }
                 
+            } else if (e.code == 'Space' && player1.map == "room"){
+                let xFrame = Math.round(player1.x / 16);
+                let yFrame = Math.round(player1.y / 16);
+                roomMap[yFrame][xFrame] = 15;
+                roomStuff[yFrame][xFrame] = 16;
+                map.loadData(roomMap, roomStuff);
             }
             console.log(` ${e.code}`);
         });
